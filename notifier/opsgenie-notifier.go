@@ -32,6 +32,7 @@ func (opsgenie *OpsGenieNotifier) Notify(messages Messages) bool {
 	client := new(ogcli.OpsGenieClient)
 	client.SetAPIKey(opsgenie.ApiKey)
 
+	log.Debug("Creating V2 opsgenie client")
 	alertCli, cliErr := client.AlertV2()
 
 	if cliErr != nil {
