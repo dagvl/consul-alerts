@@ -13,3 +13,4 @@ func (r *LisSavedSearchRequest) GetApiKey() string {
 func (r *LisSavedSearchRequest) GenerateUrl() (string, url.Values, error) {
 	return "/v2/alerts/saved-searches", nil, nil
 }
+

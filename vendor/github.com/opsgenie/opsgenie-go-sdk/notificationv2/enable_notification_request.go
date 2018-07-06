@@ -1,8 +1,8 @@
 package notificationv2
 
 import (
-	"errors"
 	"net/url"
+	"errors"
 )
 
 // EnableNotificationRequest is a struct of request to enable specified notification rule.
@@ -22,7 +22,7 @@ func (r *EnableNotificationRequest) GenerateUrl() (string, url.Values, error) {
 	baseUrl, _, err := r.Identifier.GenerateUrl()
 
 	if err != nil {
-		return "", nil, err
+		return "" , nil, err
 	}
 
 	if r.Identifier.RuleID == "" {

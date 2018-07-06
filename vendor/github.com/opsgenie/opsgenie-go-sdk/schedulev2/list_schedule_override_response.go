@@ -5,3 +5,4 @@ type ListScheduleOverrideResponse struct {
 	ResponseMeta
 	ScheduleOverrides []ScheduleOverride `json:"data"`
 }
+

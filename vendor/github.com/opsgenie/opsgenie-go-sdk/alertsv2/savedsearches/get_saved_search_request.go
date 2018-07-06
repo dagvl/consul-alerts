@@ -1,8 +1,8 @@
 package savedsearches
 
 import (
-	"errors"
 	"net/url"
+	"errors"
 )
 
 type GetSavedSearchRequest struct {

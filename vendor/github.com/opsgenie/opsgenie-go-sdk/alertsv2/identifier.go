@@ -1,8 +1,8 @@
 package alertsv2
 
 import (
-	"errors"
 	"net/url"
+	"errors"
 )
 
 type Identifier struct {
