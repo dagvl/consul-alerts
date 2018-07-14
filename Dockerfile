@@ -1,18 +1,17 @@
-FROM alpine:edge
+FROM golang:1.10 as builder
 MAINTAINER Acaleph <admin@acale.ph>
 
-ENV GOPATH /go
+WORKDIR /go/src/github.com/AcalephStorage/consul-alerts/
+ADD . /go/src/github.com/AcalephStorage/consul-alerts/
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o consul-alerts .
 
-RUN mkdir -p /go && \
-    apk update && \
-    apk add bash ca-certificates git go alpine-sdk && \
-    go get -v github.com/AcalephStorage/consul-alerts && \
-    mv /go/bin/consul-alerts /bin && \
-    go get -v github.com/hashicorp/consul && \
-    mv /go/bin/consul /bin && \
-    rm -rf /go && \
-    apk del --purge go git alpine-sdk && \
-    rm -rf /var/cache/apk/*
+FROM consul:1.2.0
+RUN apk --no-cache add ca-certificates \
+  && addgroup -S consul-alerts \
+  && adduser -S consul-alerts -G consul-alerts
+USER consul-alerts
+WORKDIR /bin
+COPY --from=builder /go/src/github.com/AcalephStorage/consul-alerts/consul-alerts /bin/consul-alerts
 
 EXPOSE 9000
 CMD []
